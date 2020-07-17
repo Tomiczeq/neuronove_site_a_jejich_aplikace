@@ -1,3 +1,8 @@
+# Cely tento skript byl stazeny z:
+# https://github.com/keras-team/keras-preprocessing/blob/master/keras_preprocessing/text.py
+# a byl upraveny na jednom radku proto, aby byl jako datovy typ
+# pouzit float 16 a ne float 64 kvuli nutnosti uspore pameti RAM
+
 # -*- coding: utf-8 -*-
 """Utilities for text input preprocessing.
 """
@@ -373,7 +378,13 @@ class Tokenizer(object):
             raise ValueError('Fit the Tokenizer on some data '
                              'before using tfidf mode.')
 
-        x = np.zeros((len(sequences), num_words), dtype=np.float16)
+#############################################################################
+#                           Toto je vlastni kod                             #
+#############################################################################
+                                                                            #
+        x = np.zeros((len(sequences), num_words), dtype=np.float16)         #
+                                                                            #
+#############################################################################
         for i, seq in enumerate(sequences):
             if not seq:
                 continue
