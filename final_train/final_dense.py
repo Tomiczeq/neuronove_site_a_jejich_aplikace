@@ -19,7 +19,6 @@ parser.add_argument('--epochs', type=int)
 
 import tensorflow
 import tensorflow.keras.backend as K
-K.set_floatx('float16')
 
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input
@@ -221,8 +220,8 @@ def main():
         model = create_model(params)
         history = model.fit_generator(generator=gen,
                                       validation_data=val_gen,
-                                      use_multiprocessing=True,
-                                      workers=8,
+                                      use_multiprocessing=False,
+                                      workers=1,
                                       epochs=params['epochs'],
                                       callbacks=[checkpoint],
                                       )
