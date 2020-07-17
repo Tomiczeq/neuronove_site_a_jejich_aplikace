@@ -1,0 +1,1 @@
+{"params": {"lr": 0.0019, "rho": 0.75, "batch_size": 1000, "epochs": 10}, "history": {"loss": [0.33056965470314026], "binary_accuracy": [0.8504253029823303], "val_loss": [0.20003962516784668], "val_binary_accuracy": [0.9237099885940552]}}
