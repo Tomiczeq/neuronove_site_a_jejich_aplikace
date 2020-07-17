@@ -94,9 +94,7 @@ def main():
 
     model = load_model(modelpath)
     prediction = model.predict_generator(generator=test_gen)
-    print(prediction)
-    print(history)
-
+    print('Prediction accuracy on reviews from file test.csv : {}'.format(prediction))
     K.clear_session()
 
 if __name__ == '__main__':
