@@ -1,6 +1,7 @@
 import os
 import json
 import numpy as np
+import pandas as pd
 from keras_tokenizer import Tokenizer
 from keras_tokenizer import tokenizer_from_json
 
@@ -15,6 +16,9 @@ import tensorflow.keras.backend as K
 import tensorflow
 from tensorflow.keras.models import load_model
 
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+
 
 class BatchGeneratorTFIDF(tensorflow.keras.utils.Sequence):
 
@@ -23,7 +27,6 @@ class BatchGeneratorTFIDF(tensorflow.keras.utils.Sequence):
         self.data = data
         self.labels = labels
         self.indexes = np.arange(len(data))
-        np.random.shuffle(self.indexes)
 
         self.batch_size = batch_size
         self.steps_per_epoch = len(data) / self.batch_size
@@ -48,7 +51,7 @@ class BatchGeneratorTFIDF(tensorflow.keras.utils.Sequence):
         data = self.tokenizer.texts_to_matrix(data, mode='tfidf')
         labels = np.array(labels)
 
-        return data, labels
+        return data
 
 
 def prepare_data(data):
@@ -90,13 +93,26 @@ def main():
 
     tokenizer = tokenizer_from_json(tokenizer_json)
 
-    test_gen = BatchGeneratorTFIDF(data, labels, tokenizer, batch_size=1000)
 
     model = load_model(modelpath)
-    prediction = model.predict_generator(generator=test_gen)
-    print('Prediction accuracy on reviews from file test.csv : {}'.format(prediction))
+    predicted_raw = []
+    step = 10000
+    for i in range(0,len(data), step):
+        tfidf_data = tokenizer.texts_to_matrix(data[i:i+step], mode='tfidf')
+        prediction = model.predict(tfidf_data)
+        predicted_raw.extend(list(prediction.reshape((len(prediction),))))
+    predicted = np.round(predicted_raw)
+    correct = np.array(labels)
+
+    report = classification_report(correct, predicted, digits=4)
+    conf_matrix = pd.crosstab(predicted, correct, rownames=['predicted'], colnames=['correct'])
+
+    print(report)
+    print(conf_matrix)
+
     K.clear_session()
 
 if __name__ == '__main__':
     main()
     print('Done')
+
