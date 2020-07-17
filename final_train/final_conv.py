@@ -154,6 +154,16 @@ def main():
     word_vectors_path = args.word_vectors_path
     word_vectors_dim = args.word_vectors_dim
 
+    if not os.path.exists(results_savedir):
+        print('directory {} does not exists'.format(os.path.abspath(results_savedir)))
+        print('creating ...')
+        os.makedirs(results_savedir)
+
+    if not os.path.exists(models_savedir):
+        print('directory {} does not exists'.format(os.path.abspath(models_savedir)))
+        print('creating ...')
+        os.makedirs(models_savedir)
+
     lr = args.lr
     rho = args.rho
     batch_size = args.batch_size
