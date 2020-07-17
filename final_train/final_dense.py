@@ -19,13 +19,13 @@ parser.add_argument('--epochs', type=int)
 
 import tensorflow
 import tensorflow.keras.backend as K
+K.set_floatx('float16')
 
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.layers import Dropout
 from tensorflow.keras.callbacks import ModelCheckpoint
-
 from tensorflow.keras.optimizers import RMSprop
 
 
