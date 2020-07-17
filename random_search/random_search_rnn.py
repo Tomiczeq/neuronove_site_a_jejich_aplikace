@@ -259,7 +259,7 @@ def main():
         data.append(review['text'])
         labels.append(review['label'])
 
-    skf = StratifiedKFold(n_splits=5, random_state=1)
+    skf = StratifiedKFold(n_splits=n_splits, random_state=1)
 
     k_folds = []
     for train_index, test_index in skf.split(data, labels):
