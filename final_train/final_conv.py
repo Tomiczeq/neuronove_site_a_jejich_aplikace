@@ -16,6 +16,8 @@ parser.add_argument('--lr', type=float)
 parser.add_argument('--rho', type=float)
 parser.add_argument('--batch_size', type=int)
 parser.add_argument('--epochs', type=int)
+parser.add_argument('--word_vectors_path', type=str)
+parser.add_argument('--word_vectors_dim', type=int)
 
 import tensorflow
 import tensorflow.keras.backend as K
@@ -31,7 +33,7 @@ from tensorflow.keras.callbacks import ModelCheckpoint
 
 from tensorflow.keras.optimizers import RMSprop
 
-from keras_sequence import pad_sequences
+from keras.preprocessing.sequence import pad_sequences
 from gensim.models import KeyedVectors
 
 
@@ -101,14 +103,16 @@ def prepare_data(data):
     return new_data, labels
 
 
-def create_model(params, weights):
+def create_model(params=None, 
+                 embeddings=None,
+                 word_vectors_dim=None):
 
     inp = Input(shape=(250,))
 
     emb = Embedding(30000,
-                    300,
+                    word_vectors_dim,
                     input_length=250,
-                    weights=[weights],
+                    weights=[embeddings],
                     trainable=False)(inp)
     drop1 = Dropout(0.28)(emb)
 
@@ -147,6 +151,8 @@ def main():
     results_savedir = args.results_savedir
     models_savedir = args.models_savedir
     name = args.name
+    word_vectors_path = args.word_vectors_path
+    word_vectors_dim = args.word_vectors_dim
 
     lr = args.lr
     rho = args.rho
@@ -183,7 +189,7 @@ def main():
         K.clear_session()
 
         texts_to_sequences = TextToSequence()
-        texts_to_sequences.load_embeddings(path='en_300_30k.txt',
+        texts_to_sequences.load_embeddings(path=word_vectors_path,
                                            limit=30000)
 
         k_train_data = []
@@ -220,7 +226,9 @@ def main():
                 mode='auto',
                 period=1)
 
-        model = create_model(params, texts_to_sequences.embeddings)
+        model = create_model(params=params,
+                             embeddings=texts_to_sequences.embeddings,
+                             word_vectors_dim=word_vectors_dim)
         results = dict()
         results['params'] = params
         results['history'] = dict()
@@ -236,8 +244,6 @@ def main():
             for metric, value in history.history.items():
                 results['history'].setdefault(metric, [])
                 results['history'][metric].append(float(value[0]))
-
-
 
             results_save_path = os.path.join(results_savedir, name + str(i))
             with open(results_save_path, 'w') as f:
