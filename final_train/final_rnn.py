@@ -16,7 +16,8 @@ parser.add_argument('--lr', type=float)
 parser.add_argument('--rho', type=float)
 parser.add_argument('--batch_size', type=int)
 parser.add_argument('--epochs', type=int)
-parser.add_argument('--kfold', type=int)
+parser.add_argument('--word_vectors_path', type=str)
+parser.add_argument('--word_vectors_dim', type=int)
 
 import tensorflow
 import tensorflow.keras.backend as K
@@ -103,14 +104,16 @@ def prepare_data(data):
     return new_data, labels
 
 
-def create_model(params, weights):
+def create_model(params=None,
+                 embeddings=None,
+                 word_vectors_dim=None):
 
     inp = Input(shape=(250,))
 
     emb = Embedding(30000,
-                    300,
+                    word_vectors_dim,
                     input_length=250,
-                    weights=[weights],
+                    weights=[embeddings],
                     trainable=False)(inp)
     drop1 = Dropout(0.48)(emb)
 
@@ -145,6 +148,19 @@ def main():
     models_savedir = args.models_savedir
     name = args.name
     kfold = args.kfold
+    word_vectors_path = args.word_vectors_path
+    word_vectors_dim = args.word_vectors_dim
+
+    if not os.path.exists(results_savedir):
+        print('directory {} does not exists'.format(os.path.abspath(results_savedir)))
+        print('creating ...')
+        os.makedirs(results_savedir)
+
+    if not os.path.exists(models_savedir):
+        print('directory {} does not exists'.format(os.path.abspath(models_savedir)))
+        print('creating ...')
+        os.makedirs(models_savedir)
+
 
     lr = args.lr
     rho = args.rho
@@ -178,14 +194,10 @@ def main():
     k_folds = []
     i = 0
     for train_index, validation_index in skf.split(test_data, test_labels):
-        print(i)
-        if i != kfold:
-            i+=1
-            continue
         K.clear_session()
 
         texts_to_sequences = TextToSequence()
-        texts_to_sequences.load_embeddings(path='en_300_30k.txt',
+        texts_to_sequences.load_embeddings(path=word_vectors_path,
                                            limit=30000)
 
         k_train_data = []
@@ -222,7 +234,9 @@ def main():
                 mode='auto',
                 period=1)
 
-        model = create_model(params, texts_to_sequences.embeddings)
+        model = create_model(params=params,
+                             embeddings=texts_to_sequences.embeddings,
+                             word_vectors_dim=word_vectors_dim)
         results = dict()
         results['params'] = params
         results['history'] = dict()
