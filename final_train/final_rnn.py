@@ -147,7 +147,6 @@ def main():
     results_savedir = args.results_savedir
     models_savedir = args.models_savedir
     name = args.name
-    kfold = args.kfold
     word_vectors_path = args.word_vectors_path
     word_vectors_dim = args.word_vectors_dim
 
