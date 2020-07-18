@@ -5,43 +5,51 @@ parser.add_argument('--savepath', type=str)
 
 import json
 import os
-import nltk
-from nltk.stem import WordNetLemmatizer
-from nltk.corpus import wordnet
 from nltk.corpus import stopwords
-
 en_stop_words = stopwords.words('english')
-lemmatizer = WordNetLemmatizer()
-
-def nltk_tag_to_wordnet_tag(nltk_tag):
-    if nltk_tag.startswith('J'):
-        return wordnet.ADJ
-    elif nltk_tag.startswith('V'):
-        return wordnet.VERB
-    elif nltk_tag.startswith('N'):
-        return wordnet.NOUN
-    elif nltk_tag.startswith('R'):
-        return wordnet.ADV
-    else:
-        return None
 
 
-def lemmatize_sentence(sentence):
-    nltk_tagged = nltk.pos_tag(nltk.word_tokenize(sentence))
-    wordnet_tagged = map(lambda x: (x[0], nltk_tag_to_wordnet_tag(x[1])), nltk_tagged)
-    lemmatized_sentence = []
-    for word, tag in wordnet_tagged:
-        if tag is None:
-            lemmatized_sentence.append(word)
-        else:
-            lemmatized_sentence.append(lemmatizer.lemmatize(word, tag))
-
-    filtered_text = []
-    for word in lemmatized_sentence:
-        if word not in en_stop_words:
-            filtered_text.append(word)
-
-    return " ".join(filtered_text)
+#############################################################################################
+# Tento kod byl prevzat z:                                                                  #
+# https://medium.com/@gaurav5430/using-nltk-for-lemmatizing-sentences-c1bfff963258i         #
+#############################################################################################
+import nltk                                                                                 #
+from nltk.stem import WordNetLemmatizer                                                     #
+from nltk.corpus import wordnet                                                             #
+                                                                                            #
+lemmatizer = WordNetLemmatizer()                                                            #
+                                                                                            #
+def nltk_tag_to_wordnet_tag(nltk_tag):                                                      #
+    if nltk_tag.startswith('J'):                                                            #
+        return wordnet.ADJ                                                                  #
+    elif nltk_tag.startswith('V'):                                                          #
+        return wordnet.VERB                                                                 #
+    elif nltk_tag.startswith('N'):                                                          #
+        return wordnet.NOUN                                                                 #
+    elif nltk_tag.startswith('R'):                                                          #
+        return wordnet.ADV                                                                  #
+    else:                                                                                   #
+        return None                                                                         #
+                                                                                            #
+                                                                                            #
+def lemmatize_sentence(sentence):                                                           #
+    nltk_tagged = nltk.pos_tag(nltk.word_tokenize(sentence))                                #
+    wordnet_tagged = map(lambda x: (x[0], nltk_tag_to_wordnet_tag(x[1])), nltk_tagged)      #
+    lemmatized_sentence = []                                                                #
+    for word, tag in wordnet_tagged:                                                        #
+        if tag is None:                                                                     #
+            lemmatized_sentence.append(word)                                                #
+        else:                                                                               #
+            lemmatized_sentence.append(lemmatizer.lemmatize(word, tag))                     #
+                                                                                            #
+    filtered_text = []                                                                      #
+    for word in lemmatized_sentence:                                                        #
+        if word not in en_stop_words:                                                       #
+            filtered_text.append(word)                                                      #
+                                                                                            #
+    return " ".join(filtered_text)                                                          #
+                                                                                            #
+#############################################################################################
 
 
 def main():

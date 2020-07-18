@@ -3,8 +3,6 @@ import json
 import numpy as np
 from sklearn.model_selection import StratifiedKFold
 from sklearn.model_selection import train_test_split
-from keras_tokenizer import Tokenizer
-from keras_tokenizer import tokenizer_from_json
 
 import argparse
 parser = argparse.ArgumentParser(description='nevim')
@@ -19,7 +17,6 @@ parser.add_argument('--epochs', type=int)
 parser.add_argument('--word_vectors_path', type=str)
 parser.add_argument('--word_vectors_dim', type=int)
 
-import tensorflow
 import tensorflow.keras.backend as K
 
 from tensorflow.keras.models import Model
@@ -190,7 +187,6 @@ def main():
 
     skf = StratifiedKFold(n_splits=3, random_state=1)
 
-    k_folds = []
     i = 0
     for train_index, validation_index in skf.split(test_data, test_labels):
         K.clear_session()
