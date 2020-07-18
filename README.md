@@ -3,16 +3,16 @@
 Tento repozitář obsahuje zdrojové kódy a naměřené průběhy trénování k bakalařské práci.
 
 Ve složce `preprocessing` Jsou skripty pro předzpracování textu.<br> 
-Ve složce `random_search` Jsou skripty pro náhodné vyhledávání hyper-parametrů<br>
-Ve složce `final_train` Jsou skripty pro trénování na celé datové sadě<br>
-Ve složce `final_eval` Jsou skripty pro testování natrénovaných sítí<br>
+Ve složce `random_search` Jsou skripty pro náhodné vyhledávání hyper-parametrů.<br>
+Ve složce `final_train` Jsou skripty pro trénování na celé datové sadě.<br>
+Ve složce `final_eval` Jsou skripty pro testování natrénovaných sítí.<br>
 
 Ve složce `data` je datová sada stažená z `https://drive.google.com/drive/folders/0Bz8a_Dbh9Qhbfll6bVpmNUtUcFdjYmF2SEpmZUZUcVNiMUw1TWN6RDV3a0JHT3kxLVhVR2M`.
 
-Ve složce `word_vectors` Jsou předtrénované slovní vektory stažené z `https://wikipedia2vec.github.io/wikipedia2vec/pretrained/`, na kterých je provedena úprava textu a jsou zmenšené na 30 000 nejběžnějších slov
+Ve složce `word_vectors` Jsou předtrénované slovní vektory stažené z `https://wikipedia2vec.github.io/wikipedia2vec/pretrained/`, na kterých je provedena úprava textu a jsou zmenšené na 30 000 nejběžnějších slov.
 
 Ve složce `results` se nacházejí ještě dvě další složky:<br>
-`random_search_results` obsahuje průběhy z náhodného vyhledávání<br>
+`random_search_results` obsahuje průběhy z náhodného vyhledávání.<br>
 `final_train_results` obsahuje průběhy z trénování na všech trénovacích recenzích.
 
 
@@ -95,7 +95,7 @@ os.chdir("/content/neuronove_site_a_jejich_aplikace")
 
 
 
-## Plne propojena sit
+## Plně propojená síť
 
 ### Náhodné vyhledávání
 
@@ -134,13 +134,7 @@ os.chdir("/content/neuronove_site_a_jejich_aplikace")
          --tokenizerpath=data/tokenizer1.json
 ```
 
-
-
-
-
-
-
-## Konvolucni sit
+## Konvoluční síť
 
 
 ### Náhodné vyhledávání 
