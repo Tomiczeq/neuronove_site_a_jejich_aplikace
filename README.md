@@ -2,18 +2,18 @@
 
 Tento repozitář obsahuje zdrojové kódy a naměřené průběhy trénování k bakalarské práci.
 
-Ve složce `preprocessing` Jsou skripty pro předzpracování textu \\ 
-Ve složce `random_search` Jsou skripty pro náhodné vyhledávání hyper-parametrů  
-Ve složce `final_train` Jsou skripty pro trénování na celé datové sadě  
-Ve složce `final_eval` Jsou skripty pro testování natrénovaných sítí  
+Ve složce `preprocessing` Jsou skripty pro předzpracování textu\ 
+Ve složce `random_search` Jsou skripty pro náhodné vyhledávání hyper-parametrů\
+Ve složce `final_train` Jsou skripty pro trénování na celé datové sadě\
+Ve složce `final_eval` Jsou skripty pro testování natrénovaných sítí\
 
 Ve složce `data` je datová sada stažená z `https://drive.google.com/drive/folders/0Bz8a_Dbh9Qhbfll6bVpmNUtUcFdjYmF2SEpmZUZUcVNiMUw1TWN6RDV3a0JHT3kxLVhVR2M`.
 
 Ve složce `word_vectors` Jsou předtrénované slovní vektory stažené z `https://wikipedia2vec.github.io/wikipedia2vec/pretrained/`.
 
-Ve složce `results` se nacházejí ještě dvě další složky:
-`random_search_results` obsahuje naměřené hodnoty z náhodného vyhledávání a
-`final_train_results` obsahuje naměřené hodnoty na všech trénovacích recenzích.
+Ve složce `results` se nacházejí ještě dvě další složky:\
+`random_search_results` obsahuje naměřené hodnoty z náhodného vyhledávání\
+`final_train_results` obsahuje naměřené hodnoty na všech trénovacích recenzích.\
 
 
 ## Zprovoznění v Google Colaboratory
@@ -178,7 +178,7 @@ os.chdir("/content/neuronove_site_a_jejich_aplikace")
 ```
 
 
-## Rekurentni sit
+## Rekurentní sít
 
 ### Náhodné vyhledávání
 
