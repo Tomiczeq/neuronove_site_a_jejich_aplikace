@@ -34,7 +34,7 @@ from tensorflow.keras.callbacks import ModelCheckpoint
 
 from tensorflow.keras.optimizers import RMSprop
 
-from keras_sequence import pad_sequences
+from keras.preprocessing.sequence import pad_sequences
 from gensim.models import KeyedVectors
 
 
