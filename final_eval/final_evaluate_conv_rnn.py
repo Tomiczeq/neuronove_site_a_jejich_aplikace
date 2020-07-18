@@ -93,7 +93,6 @@ def main():
     datapath = args.datapath
     modelpath = args.modelpath
     word_vectors_path = args.word_vectors_path
-    word_vectors_dim = args.word_vectors_dim
 
     with open(datapath, 'r') as f:
         final_data = json.load(f)
