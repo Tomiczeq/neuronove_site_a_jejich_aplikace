@@ -14,6 +14,7 @@ parser.add_argument('--word_vectors_path', type=str)
 import tensorflow.keras.backend as K
 
 from keras_sequence import pad_sequences
+from keras.preprocessing.sequence import pad_sequences
 from gensim.models import KeyedVectors
 
 import tensorflow
