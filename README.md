@@ -12,8 +12,8 @@ Ve složce `data` je datová sada stažená z `https://drive.google.com/drive/fo
 Ve složce `word_vectors` Jsou předtrénované slovní vektory stažené z `https://wikipedia2vec.github.io/wikipedia2vec/pretrained/`, na kterých je provedena úprava textu a jsou zmenšené na 30 000 nejběžnějších slov
 
 Ve složce `results` se nacházejí ještě dvě další složky:<br>
-`random_search_results` obsahuje naměřené hodnoty z náhodného vyhledávání<br>
-`final_train_results` obsahuje naměřené hodnoty na všech trénovacích recenzích.
+`random_search_results` obsahuje průběhy z náhodného vyhledávání<br>
+`final_train_results` obsahuje průběhy z trénování na všech trénovacích recenzích.
 
 
 ## Zprovoznění v Google Colaboratory
