@@ -46,11 +46,9 @@ def main():
         raw = caption + ' ' + text
         preprocessed = preprocess(raw)
         tfidf = tokenizer.texts_to_matrix([preprocessed], mode='tfidf')
-        print(preprocessed)
-        print(tfidf)
-
         prediction = model.predict(tfidf)
 
+        print()
         if prediction[0][0] < 0.5:
             print('Tato recenze je negativní')
             print('Předpovězené skóre: ', prediction[0][0])
