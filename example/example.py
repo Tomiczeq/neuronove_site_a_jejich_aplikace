@@ -50,7 +50,13 @@ def main():
         print(tfidf)
 
         prediction = model.predict(tfidf)
-        print(prediction)
+
+        if prediction[0][0] < 0.5:
+            print('Tato recenze je negativní')
+            print('Předpovězené skóre: ', prediction[0][0])
+        else:
+            print('Tato recenze je pozitivní')
+            print('Předpovězené skóre: ', prediction[0][0])
 
 
 if __name__ == '__main__':
